@@ -1,29 +1,4 @@
 <template>
-  <div class="form-group">
-    <label for="my-file">Select Image</label>
-    <input
-      type="file"
-      multiple="multiple"
-      @change="onFileAdd"
-      class="form-control-file"
-      id="my-file"
-      ref="uploadInput"
-    />
-
-    <div class="border p-2 mt-3">
-      <p>Preview Here:</p>
-      <template v-if="previewList.length">
-        <div v-for="(item, index) in previewList" :key="index">
-          <div class="symbol symbol-50px me-5">
-            <img :src="item" class="img-fluid" />
-          </div>
-          <p class="mb-0">file name: {{ imageList[index].name }}</p>
-          <p>size: {{ imageList[index].size / 1024 }}KB</p>
-        </div>
-      </template>
-    </div>
-    <button @click="enviar" class="btn btn-primary">Enviar</button>
-  </div>
   <div className="row">
     <div className="col-lg-6 mb-20">
       <ClientesList :clientes="clientes" />

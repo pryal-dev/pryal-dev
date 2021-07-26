@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column mb-20">
+  <div class="d-flex flex-column mb-10 bg-light rounded p-5">
     <span class="fw-bold fs-1">{{ resposta.item }}</span>
     <span class="mb-3"> Categoria: {{ resposta.categoria }} </span>
     <div class="d-flex align-items-center justify-content-start">

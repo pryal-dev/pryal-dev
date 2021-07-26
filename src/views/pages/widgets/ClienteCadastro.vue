@@ -10,8 +10,14 @@
     >
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">
-            Cadastro de novo cliente {{ cliente.nome }}
+          <h5 class="modal-title d-flex flex-column align-items-start">
+            <span v-if="isCadastroNovo">
+              Cadastro de novo cliente
+            </span>
+            <span v-else>Atualizar cadastro de {{ cliente.nome }}</span>
+            <button class="btn btn-sm btn-link p-0" @click="excluir">
+              Excluir
+            </button>
           </h5>
           <!--begin::Close-->
           <div
@@ -257,6 +263,7 @@ import { saveToken } from "@/core/services/JwtService";
 import ApiService from "@/core/services/ApiService";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import { Field, Form } from "vee-validate";
+import { useRouter } from "vue-router";
 import * as Yup from "yup";
 import { pt } from "yup-locale-pt";
 
@@ -273,6 +280,7 @@ export default defineComponent({
     const closeModal = ref<HTMLButtonElement | null>(null);
     const isCadastroNovo = ref(true);
     const form = ref<HTMLFormElement>();
+    const route = useRouter();
 
     Yup.setLocale(pt);
     const validacoes = Yup.object().shape({
@@ -353,6 +361,14 @@ export default defineComponent({
       });
     };
 
+    const excluir = () => {
+      ApiService.delete(
+        "/clientes/excluir/" + clienteProp.cliente.id
+      ).then(({ data }) => {
+        closeModal.value?.click();
+      });
+    }
+
     return {
       cadastrar,
       atualizar,
@@ -364,6 +380,7 @@ export default defineComponent({
       form,
       Form,
       Field,
+      excluir
     };
   },
 });
