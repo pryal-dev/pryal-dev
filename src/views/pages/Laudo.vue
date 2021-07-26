@@ -4,9 +4,15 @@
       <div class="card-header d-flex flex-column">
         <div class="d-flex justify-content-between align-items-center">
           <h1 class="mt-4">Iniciar Laudo</h1>
-          <button class="btn btn-sm btn-danger mt-4" v-if="!isCadastroNovo" @click="excluir">
-            Excluir
-          </button>
+          <div class="d-flex justify-content-between align-items-center" v-if="!isCadastroNovo">
+            <router-link :to="{ name: 'Cadastrar-evidencias-laudo' }" class="btn btn-primary btn-primary d-flex align-items-center mt-4 me-4">
+              <i class="fa fa-camera fs-2"></i>
+              Enviar evidências
+            </router-link>
+            <button class="btn btn-sm btn-link mt-4" @click="excluir">
+              Excluir
+            </button>
+          </div>
         </div>
         
         <span class="text-muted font-weight-bold font-size-sm my-1">
@@ -100,6 +106,8 @@ export default defineComponent({
     const route = useRouter();
     const accordions = ref<any>([]);
 
+    const isCadastroNovo = ref(true);
+
     let analiseId = route.currentRoute.value.params.analiseId;
     let veiculoId = route.currentRoute.value.query.veiculoId;
     //var res = arr1.map(obj => arr2.find(o => o.id === obj.id) || obj);
@@ -157,7 +165,7 @@ export default defineComponent({
             text: "Não foi possível registrar as informações",
             icon: "danger",
             buttonsStyling: false,
-            confirmButtonText: "Ok :()",
+            confirmButtonText: "Ok :(",
             customClass: {
               confirmButton: "btn fw-bold btn-light-danger",
             },
@@ -192,13 +200,14 @@ export default defineComponent({
         );
       ApiService.setHeader();
       //let analiseNova = {...obj1, ...obj2};
-      const isNovoCadastro = route.currentRoute.value.query.veiculoId;
-      if (isNovoCadastro) {
+      const veiculoId = route.currentRoute.value.query.veiculoId;
+      if (veiculoId) {
         analise.value = { ...analise.value, ...route.currentRoute.value.query };
         ApiService.get("analise/perguntas").then(({ data }) => {
           perguntas.value = data
         });
       } else {
+        isCadastroNovo.value = false;
         ApiService.get("analise/perguntas").then(({ data }) => {
           const perguntasSemRespostas = data;
           ApiService.get(`analise?id=${analiseId}`).then(({ data }) => {
@@ -244,7 +253,8 @@ export default defineComponent({
       accordions,
       getNumeroRespostasPorLocalizacao,
       enviarRespostas,
-      excluir
+      excluir,
+      isCadastroNovo
     };
   },
 });

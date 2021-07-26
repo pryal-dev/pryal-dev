@@ -17,6 +17,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/cadastrar-laudo/:analiseId?",
         name: "Cadastrar-laudo",
         component: () => import("@/views/pages/Laudo.vue")
+      },
+      {
+        path: "/cadastrar-evidencias-laudo/:analiseId",
+        name: "Cadastrar-evidencias-laudo",
+        component: () => import("@/views/pages/Evidencias.vue")
       }
     ]
   },
