@@ -4,8 +4,14 @@
       <div class="card-header d-flex flex-column">
         <div class="d-flex justify-content-between align-items-center">
           <h1 class="mt-4">Iniciar Laudo</h1>
-          <div class="d-flex justify-content-between align-items-center" v-if="!isCadastroNovo">
-            <router-link :to="{ name: 'Cadastrar-evidencias-laudo' }" class="btn btn-primary btn-primary d-flex align-items-center mt-4 me-4">
+          <div
+            class="d-flex justify-content-between align-items-center"
+            v-if="!isCadastroNovo"
+          >
+            <router-link
+              :to="{ name: 'Cadastrar-evidencias-laudo' }"
+              class="btn btn-primary btn-primary d-flex align-items-center mt-4 me-4"
+            >
               <i class="fa fa-camera fs-2"></i>
               Enviar evidências
             </router-link>
@@ -14,7 +20,7 @@
             </button>
           </div>
         </div>
-        
+
         <span class="text-muted font-weight-bold font-size-sm my-1">
           {{ analise.marca }} - {{ analise.modelo }} | {{ analise.placa }}
         </span>
@@ -33,12 +39,16 @@
             <h2 class="accordion-header" id="headingOne">
               <button
                 :ref="
-                  (el) => {
+                  el => {
                     accordions.push(el);
                   }
                 "
                 class="accordion-button bg-white text-dark fs-1 text-center"
-                :class="{'bg-success':getNumeroRespostasPorLocalizacao(localizacao.localizacao) === localizacao.items.length
+                :class="{
+                  'bg-success':
+                    getNumeroRespostasPorLocalizacao(
+                      localizacao.localizacao
+                    ) === localizacao.items.length
                 }"
                 type="button"
                 data-bs-toggle="collapse"
@@ -66,7 +76,7 @@
                   @click="enviarRespostas(localizacao, indexPergunta)"
                   :disabled="
                     localizacao.items.length >
-                    getNumeroRespostasPorLocalizacao(localizacao.localizacao)
+                      getNumeroRespostasPorLocalizacao(localizacao.localizacao)
                   "
                   class="
                     btn btn-success
@@ -114,7 +124,10 @@ export default defineComponent({
 
     function getNumeroRespostasPorLocalizacao(localizacao) {
       return resultado.value.filter(function(item) {
-        return item.localizacao === localizacao || item.localizacao === localizacao.replace(" ", "");
+        return (
+          item.localizacao === localizacao ||
+          item.localizacao === localizacao.replace(" ", "")
+        );
       }).length;
     }
 
@@ -146,8 +159,8 @@ export default defineComponent({
             buttonsStyling: false,
             confirmButtonText: "Ok, proximo!",
             customClass: {
-              confirmButton: "btn fw-bold btn-light-primary",
-            },
+              confirmButton: "btn fw-bold btn-light-primary"
+            }
           }).then(() => {
             if (index + 1 === perguntas.value.length) {
               route.push({ name: "Dashboard" });
@@ -167,19 +180,17 @@ export default defineComponent({
             buttonsStyling: false,
             confirmButtonText: "Ok :(",
             customClass: {
-              confirmButton: "btn fw-bold btn-light-danger",
-            },
+              confirmButton: "btn fw-bold btn-light-danger"
+            }
           });
         });
     }
 
     const excluir = () => {
-      ApiService.delete(
-          "/analise/excluir/" + analiseId
-        ).then(({ data }) => {
-          route.push({ name: "Dashboard" });
-        });
-    }
+      ApiService.delete("/analise/excluir/" + analiseId).then(({ data }) => {
+        route.push({ name: "Dashboard" });
+      });
+    };
 
     onBeforeUpdate(() => {
       accordions.value = [];
@@ -187,7 +198,9 @@ export default defineComponent({
 
     onMounted(() => {
       emitter.on("atualizarResposta", function(resposta) {
-        const index = resultado.value.findIndex((resp) => resp.itemId === resposta.itemId);
+        const index = resultado.value.findIndex(
+          resp => resp.itemId === resposta.itemId
+        );
         if (index > -1) {
           resultado.value[index] = resposta;
         } else {
@@ -196,15 +209,15 @@ export default defineComponent({
       });
 
       saveToken(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlBlZHJvIiwicm9sZSI6IkFkbWluaXN0cmFkb3IiLCJuYmYiOjE2MjUwOTk2MzQsImV4cCI6MTY1NjYzNTYzNCwiaWF0IjoxNjI1MDk5NjM0fQ.SFpPm7a5AIKjIkb0rwXIi5DxqI_pjAaNG4XtPw-_VJk"
-        );
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlBlZHJvIiwicm9sZSI6IkFkbWluaXN0cmFkb3IiLCJuYmYiOjE2MjUwOTk2MzQsImV4cCI6MTY1NjYzNTYzNCwiaWF0IjoxNjI1MDk5NjM0fQ.SFpPm7a5AIKjIkb0rwXIi5DxqI_pjAaNG4XtPw-_VJk"
+      );
       ApiService.setHeader();
       //let analiseNova = {...obj1, ...obj2};
       const veiculoId = route.currentRoute.value.query.veiculoId;
       if (veiculoId) {
         analise.value = { ...analise.value, ...route.currentRoute.value.query };
         ApiService.get("analise/perguntas").then(({ data }) => {
-          perguntas.value = data
+          perguntas.value = data;
         });
       } else {
         isCadastroNovo.value = false;
@@ -214,8 +227,8 @@ export default defineComponent({
             analise.value = data;
 
             const perguntasComRespostas = perguntasSemRespostas.map(
-              (pergunta) => {
-                const respostasPorLocalizacao = pergunta.items.map((item) => {
+              pergunta => {
+                const respostasPorLocalizacao = pergunta.items.map(item => {
                   const resposta = data.respostas.find(function(object) {
                     return item.itemId === object.itemId;
                   });
@@ -228,7 +241,7 @@ export default defineComponent({
                       itemId: resposta.itemId,
                       localizacao: pergunta.localizacao,
                       resposta: resposta.resposta,
-                      observacao: resposta.observacao,
+                      observacao: resposta.observacao
                     });
                   }
                   return item;
@@ -256,6 +269,6 @@ export default defineComponent({
       excluir,
       isCadastroNovo
     };
-  },
+  }
 });
 </script>

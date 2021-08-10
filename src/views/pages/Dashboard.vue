@@ -40,7 +40,7 @@ export default defineComponent({
       });
     });
 
-    const onFileAdd = (event) => {
+    const onFileAdd = event => {
       const input = event.target;
       let count = input.files.length;
       let index = 0;
@@ -57,8 +57,8 @@ export default defineComponent({
       }
     };
 
-    const onUpload = (status) => {
-      console.log('status', status);
+    const onUpload = status => {
+      console.log("status", status);
     };
 
     const enviar = () => {
@@ -78,7 +78,7 @@ export default defineComponent({
         headers: {
           "Content-Type": "multipart/form-data"
         }
-      }).then((resp) => {
+      }).then(resp => {
         console.log(resp);
       });
     };
@@ -94,6 +94,6 @@ export default defineComponent({
       enviar,
       uploadInput
     };
-  },
+  }
 });
 </script>

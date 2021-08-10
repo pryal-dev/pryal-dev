@@ -38,10 +38,20 @@
             >
               <div class="card-body mb-10">
                 <div class="">
-                  <div class="d-flex flex-nowrap overflow-auto align-items-start mb-3">
-                  <template v-for="(evidencia, index) in categoriaFilter(categoria.value)" :key="index">
-                    <img :src="evidencia.url" class="img-thumbnail mw-100px" />
-                  </template>
+                  <div
+                    class="d-flex flex-nowrap overflow-auto align-items-start mb-3"
+                  >
+                    <template
+                      v-for="(evidencia, index) in categoriaFilter(
+                        categoria.value
+                      )"
+                      :key="index"
+                    >
+                      <img
+                        :src="evidencia.url"
+                        class="img-thumbnail mw-100px"
+                      />
+                    </template>
                   </div>
                   <button
                     class="btn btn-light-primary d-flex align-items-center"
@@ -61,14 +71,16 @@
                     class="form-control-file d-none"
                     id="my-file"
                     :ref="
-                      (el) => {
+                      el => {
                         inputs[i] = el;
                       }
                     "
                   />
                   <div class="border p-2 mt-3" v-if="previewList.length">
                     <p>Imagens para adicionar:</p>
-                    <div class="d-flex align-items-center justify-content-start flex-wrap" >
+                    <div
+                      class="d-flex align-items-center justify-content-start flex-wrap"
+                    >
                       <template v-for="(item, j) in previewList" :key="j">
                         <img :src="item" class="img-thumbnail mw-100px" />
                       </template>
@@ -76,7 +88,19 @@
                   </div>
                 </div>
                 <div class="progress mt-3 mb-3">
-                  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" :ref="el => { progressBars[i] = el }"></div>
+                  <div
+                    class="progress-bar progress-bar-striped"
+                    role="progressbar"
+                    style="width: 0%"
+                    aria-valuenow="100"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    :ref="
+                      el => {
+                        progressBars[i] = el;
+                      }
+                    "
+                  ></div>
                 </div>
                 <button
                   @click="enviar(categoria.value, i)"
@@ -108,7 +132,7 @@ import {
   reactive,
   onMounted,
   onBeforeUpdate,
-  computed,
+  computed
 } from "vue";
 import { saveToken } from "@/core/services/JwtService";
 import ApiService from "@/core/services/ApiService";
@@ -179,7 +203,7 @@ export default defineComponent({
           buttonsStyling: false,
           confirmButtonText: "Ok ",
           customClass: {
-            confirmButton: "btn fw-bold btn-light-success",
+            confirmButton: "btn fw-bold btn-light-success"
           }
         });
       }
@@ -189,7 +213,7 @@ export default defineComponent({
       progressBar = progressBars.value[index];
       const formData = new FormData();
 
-      Array.prototype.forEach.call(inputs.value[index].files, (file) => {
+      Array.prototype.forEach.call(inputs.value[index].files, file => {
         formData.append("imagens", file);
       });
 
@@ -199,7 +223,7 @@ export default defineComponent({
       ApiService.post("analise/upload", formData, {
         onUploadProgress: onUpload,
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data"
         }
       }).then(resp => {
         console.log(resp);
@@ -207,16 +231,20 @@ export default defineComponent({
     };
 
     const categoriaFilter = categoria => {
-      return imageList.value?.filter(x => { return x.categoria === categoria })
+      return imageList.value?.filter(x => {
+        return x.categoria === categoria;
+      });
     };
 
     onMounted(() => {
       ApiService.get(`analise?id=${model.analiseId}`).then(({ data }) => {
         model.analise = data;
       });
-      ApiService.get(`analise/evidencias?id=${model.analiseId}`).then(({ data }) => {
-        imageList.value = data;
-      });
+      ApiService.get(`analise/evidencias?id=${model.analiseId}`).then(
+        ({ data }) => {
+          imageList.value = data;
+        }
+      );
     });
 
     return {

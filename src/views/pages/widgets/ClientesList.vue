@@ -50,7 +50,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import ApiService from "@/core/services/ApiService";
 import { useRouter } from "vue-router";
 import ClienteCadastro from "@/views/pages/widgets/ClienteCadastro.vue";
 
@@ -62,7 +61,7 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
-    const cliente = ref<any>({});
+    const cliente = ref<unknown>({});
 
     function setCliente(cli) {
       cliente.value = cli;
