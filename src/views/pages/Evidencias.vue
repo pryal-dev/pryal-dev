@@ -165,7 +165,7 @@ export default defineComponent({
       analise: { marca: "", modelo: "", placa: "" }
     });
 
-    const imageList = ref<Array<Evidencia>>();
+    let imageList: Array<Evidencia> = [];
     const previewList = ref<any>([]);
     const progressBars = ref<any>([]);
     const inputs = ref<any>([]);
@@ -231,20 +231,16 @@ export default defineComponent({
     };
 
     const categoriaFilter = categoria => {
-      return imageList.value?.filter(x => {
-        return x.categoria === categoria;
-      });
+      return imageList.filter(x => { return x.categoria === categoria })
     };
 
     onMounted(() => {
       ApiService.get(`analise?id=${model.analiseId}`).then(({ data }) => {
         model.analise = data;
       });
-      ApiService.get(`analise/evidencias?id=${model.analiseId}`).then(
-        ({ data }) => {
-          imageList.value = data;
-        }
-      );
+      ApiService.get(`analise/evidencias?id=${model.analiseId}`).then(({ data }) => {
+        imageList = data;
+      });
     });
 
     return {
