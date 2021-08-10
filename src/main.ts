@@ -13,7 +13,7 @@ import i18n from "@/core/plugins/i18n";
 import MockAdapter from "@/core/mock/MockService.ts";
 import ApiService from "@/core/services/ApiService.ts";
 import { initApexCharts } from "@/core/plugins/apexcharts";
-import { initVueTheMask } from "@/core/plugins/vue-the-mask"
+import { initVueTheMask } from "@/core/plugins/vue-the-mask";
 import { initInlineSvg } from "@/core/plugins/inline-svg";
 import { initVeeValidate } from "@/core/plugins/vee-validate.ts";
 

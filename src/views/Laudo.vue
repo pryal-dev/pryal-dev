@@ -14,25 +14,33 @@
                   >
                     <div class="row mb-3">
                       <div class="col-6">
-
-                          <img
-                            src="media/logos/Pryal Horizontal Tagline.png"
-                            class="mw-200px mb-5"
-                          />
+                        <img
+                          src="media/logos/Pryal Horizontal Tagline.png"
+                          class="mw-200px mb-5"
+                        />
                         <div class="row">
-                          <div class="col-6 d-flex flex-column align-items-center py-5">
-                              <h3>Parecer final</h3>
-                              <span
-                                class="d-flex align-items-center text-success"
-                                ><i
-                                  class="fa fa-check-circle text-success me-3"
-                                  style="font-size: 50px"
-                                ></i>
-                                Aprovado
-                              </span>
-                              <span class="mt-5"><span class="fs-8 text-muted">Data do laudo </span><span class="fs-8">{{ model.laudo.data }}</span></span>
+                          <div
+                            class="col-6 d-flex flex-column align-items-center py-5"
+                          >
+                            <h3>Parecer final</h3>
+                            <span class="d-flex align-items-center text-success"
+                              ><i
+                                class="fa fa-check-circle text-success me-3"
+                                style="font-size: 50px"
+                              ></i>
+                              Aprovado
+                            </span>
+                            <span class="mt-5"
+                              ><span class="fs-8 text-muted"
+                                >Data do laudo </span
+                              ><span class="fs-8">{{
+                                model.laudo.data
+                              }}</span></span
+                            >
                           </div>
-                          <div class="col-6 d-flex justify-content-center align-items-center">
+                          <div
+                            class="col-6 d-flex justify-content-center align-items-center"
+                          >
                             <img
                               src="media\misc\QRCode.png"
                               style="width: 100px"
@@ -196,7 +204,9 @@
                                       class="mw-30px"
                                     />
                                   </div>
-                                  <span class="text-white">{{ model.laudo.marca }}</span>
+                                  <span class="text-white">{{
+                                    model.laudo.marca
+                                  }}</span>
                                 </div>
                                 <img
                                   class="mw-100"
@@ -214,7 +224,9 @@
                                   "
                                   style="background-color: #15151e"
                                 >
-                                  <span class="text-white">{{ model.laudo.modelo }}</span>
+                                  <span class="text-white">{{
+                                    model.laudo.modelo
+                                  }}</span>
                                 </div>
                                 <div
                                   class="
@@ -224,11 +236,22 @@
                                     justify-content-between
                                     mt-3
                                   "
-                                  :class="[ getItemsOk(categoria.items) == categoria.items.length ? 'bg-secondary' : 'bg-warning']"
-                                  v-for="(categoria, index) in model.laudo.categorias" :key="index"
+                                  :class="[
+                                    getItemsOk(categoria.items) ==
+                                    categoria.items.length
+                                      ? 'bg-secondary'
+                                      : 'bg-warning'
+                                  ]"
+                                  v-for="(categoria, index) in model.laudo
+                                    .categorias"
+                                  :key="index"
                                 >
                                   <label>{{ categoria.categoria }}</label>
-                                  <label>{{ getItemsOk(categoria.items) }}/{{ categoria.items.length }}</label>
+                                  <label
+                                    >{{ getItemsOk(categoria.items) }}/{{
+                                      categoria.items.length
+                                    }}</label
+                                  >
                                 </div>
                                 <div
                                   class="
@@ -239,11 +262,22 @@
                                     mt-3
                                     d-none
                                   "
-                                  :class="[ getItemsOk(categoria.items) == categoria.items.length ? 'bg-success' : 'bg-warning']"
-                                  v-for="(categoria, index) in model.laudo.categorias" :key="index"
+                                  :class="[
+                                    getItemsOk(categoria.items) ==
+                                    categoria.items.length
+                                      ? 'bg-success'
+                                      : 'bg-warning'
+                                  ]"
+                                  v-for="(categoria, index) in model.laudo
+                                    .categorias"
+                                  :key="index"
                                 >
                                   <label>{{ categoria.categoria }}</label>
-                                  <label>{{ getItemsOk(categoria.items) }}/{{ categoria.items.length }}</label>
+                                  <label
+                                    >{{ getItemsOk(categoria.items) }}/{{
+                                      categoria.items.length
+                                    }}</label
+                                  >
                                 </div>
                               </div>
                               <div
@@ -264,27 +298,67 @@
                             </div>
                           </div>
                           <div class="col-5">
-                            <div class="card border border-warning mb-3 pb-3" v-for="(categoria, index) in getCategoriaComProblema(model.laudo.categorias)" :key="index">
+                            <div
+                              class="card border border-warning mb-3 pb-3"
+                              v-for="(categoria,
+                              index) in getCategoriaComProblema(
+                                model.laudo.categorias
+                              )"
+                              :key="index"
+                            >
                               <div class="card-title text-center">
-                                <h3 class="text-warning pt-3">{{ categoria.categoria }}</h3>
+                                <h3 class="text-warning pt-3">
+                                  {{ categoria.categoria }}
+                                </h3>
                               </div>
                               <div class="px-3 d-flex flex-column">
-                                <span v-for="(item, indexItem) in getItemsComProblema(categoria.items)" :key="indexItem"><span class="bullet bg-warning"></span> {{ item.item }}</span>
+                                <span
+                                  v-for="(item,
+                                  indexItem) in getItemsComProblema(
+                                    categoria.items
+                                  )"
+                                  :key="indexItem"
+                                  ><span class="bullet bg-warning"></span>
+                                  {{ item.item }}</span
+                                >
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="row" v-for="(categoria, index) in model.laudo.categorias" :key="index">
+                    <div
+                      class="row"
+                      v-for="(categoria, index) in model.laudo.categorias"
+                      :key="index"
+                    >
                       <div class="col-8">
-                        <div class="card border mb-3" >
-                          <div className="card-body d-flex flex-column" >
-                              <h2>{{ categoria.categoria }}</h2>
-                              <div class="d-flex justify-content-between align-items-center" v-for="(item, indexItem) in categoria.items" :key="indexItem">
-                                <span :class="[item.positivo ? 'text-success' : 'text-warning']"><i class="fas" :class="[item.positivo ? 'text-success fa-check-circle' : 'text-warning fa-exclamation-triangle']"></i> {{ item.item }}</span> 
-                                <span>{{ item.observacao }}</span>
-                              </div>
+                        <div class="card border mb-3">
+                          <div className="card-body d-flex flex-column">
+                            <h2>{{ categoria.categoria }}</h2>
+                            <div
+                              class="d-flex justify-content-between align-items-center"
+                              v-for="(item, indexItem) in categoria.items"
+                              :key="indexItem"
+                            >
+                              <span
+                                :class="[
+                                  item.positivo
+                                    ? 'text-success'
+                                    : 'text-warning'
+                                ]"
+                                ><i
+                                  class="fas"
+                                  :class="[
+                                    item.positivo
+                                      ? 'text-success fa-check-circle'
+                                      : 'text-warning fa-exclamation-triangle'
+                                  ]"
+                                ></i>
+                                {{ item.item }}</span
+                              >
+                              <span>{{ item.observacao }}</span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -293,7 +367,14 @@
                           <div className="card-body">
                             <h2>Fotos</h2>
                             <div class="row">
-                              <div class="col-6" v-for="(evidencia, indexEvidencia) in getImagensCategoria(categoria.categoria)" :key="indexEvidencia">
+                              <div
+                                class="col-6"
+                                v-for="(evidencia,
+                                indexEvidencia) in getImagensCategoria(
+                                  categoria.categoria
+                                )"
+                                :key="indexEvidencia"
+                              >
                                 <img :src="evidencia.imagem" class="mw-100" />
                               </div>
                             </div>
@@ -337,32 +418,32 @@ export default defineComponent({
       }
     });
 
-    const getItemsOk = (list) => {
+    const getItemsOk = list => {
       if (!list) return;
       return list.filter(x => {
         return x.positivo === true;
-      }).length
-    }
+      }).length;
+    };
 
-    const getCategoriaComProblema = (list) => {
+    const getCategoriaComProblema = list => {
       if (!list) return;
       return list.filter(x => {
-        return x.items.some(y => y.positivo === false)
+        return x.items.some(y => y.positivo === false);
       });
-    }
+    };
 
-    const getItemsComProblema = (list) => {
+    const getItemsComProblema = list => {
       if (!list) return;
       return list.filter(x => {
-        return x.positivo === false
+        return x.positivo === false;
       });
-    }
+    };
 
-    const getImagensCategoria = (categoria) => {
+    const getImagensCategoria = categoria => {
       return model.laudo.evidencias.filter(x => {
         return x["categoria"] == categoria;
       });
-    }
+    };
 
     saveToken(
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlBlZHJvIiwicm9sZSI6IkFkbWluaXN0cmFkb3IiLCJuYmYiOjE2MjUwOTk2MzQsImV4cCI6MTY1NjYzNTYzNCwiaWF0IjoxNjI1MDk5NjM0fQ.SFpPm7a5AIKjIkb0rwXIi5DxqI_pjAaNG4XtPw-_VJk"
@@ -380,6 +461,6 @@ export default defineComponent({
       getItemsComProblema,
       getImagensCategoria
     };
-  },
+  }
 });
 </script>

@@ -26,11 +26,6 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
-    path: "/laudo/:laudoId",
-    name: "laudo",
-    component: () => import("@/views/Laudo.vue")
-  },
-  {
     path: "/sign-in",
     name: "sign-in",
     component: () => import("@/views/auth/SignIn.vue")
