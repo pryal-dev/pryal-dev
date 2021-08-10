@@ -231,30 +231,16 @@ export default defineComponent({
     };
 
     const categoriaFilter = categoria => {
-<<<<<<< HEAD
-      return imageList.value?.filter(x => {
-        return x.categoria === categoria;
-      });
-=======
       return imageList.filter(x => { return x.categoria === categoria })
->>>>>>> parent of 6a41257 (update)
     };
 
     onMounted(() => {
       ApiService.get(`analise?id=${model.analiseId}`).then(({ data }) => {
         model.analise = data;
       });
-<<<<<<< HEAD
-      ApiService.get(`analise/evidencias?id=${model.analiseId}`).then(
-        ({ data }) => {
-          imageList.value = data;
-        }
-      );
-=======
       ApiService.get(`analise/evidencias?id=${model.analiseId}`).then(({ data }) => {
         imageList = data;
       });
->>>>>>> parent of 6a41257 (update)
     });
 
     return {
